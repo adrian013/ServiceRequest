@@ -27,9 +27,11 @@ namespace ServiceRequestManager.Application.Services
             return _mapper.Map<List<ServiceRequestDTO>>(serviceRequests);
         }
 
-        public async Task<ServiceRequestDTO> GetOneById()
+        public async Task<ServiceRequestDTO> GetOneById(Guid id)
         {
-            throw new NotImplementedException();
+            var serviceRequest = await _serviceRequestRepository.GetOneById(id);
+
+            return _mapper.Map<ServiceRequestDTO>(serviceRequest);
         }
     }
 }

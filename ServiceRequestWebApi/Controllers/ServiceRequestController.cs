@@ -22,13 +22,13 @@ namespace ServiceRequestManager.Api.Controllers
         }
 
         /// <summary>
-        /// Returns all the service requests.
+        /// Read all service requests.
         /// </summary>
         /// <returns>A list of ServiceRequest</returns>
         [HttpGet("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public ActionResult<List<ServiceRequestDTO>> GetAllServiceRequest()
+        public ActionResult<List<ServiceRequestDTO>> GetAll()
         {
             var serviceRequests =  _serviceRequestService.GetAll();
 
@@ -38,6 +38,25 @@ namespace ServiceRequestManager.Api.Controllers
             }
 
             return Ok(serviceRequests);
+        }
+
+        /// <summary>
+        /// Read service request by id.
+        /// </summary>
+        /// <returns>A ServiceRequest inscance</returns>
+        [HttpGet("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<ServiceRequestDTO>> GetById(Guid id)
+        {
+            var serviceRequest = await _serviceRequestService.GetOneById(id);
+
+            if (serviceRequest == null)
+            {
+                return NotFound();
+            }
+
+            return Ok(serviceRequest);
         }
     }
 }

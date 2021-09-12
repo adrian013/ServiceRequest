@@ -1,4 +1,5 @@
-﻿using ServiceRequestManager.Application.DataContext;
+﻿using Microsoft.EntityFrameworkCore;
+using ServiceRequestManager.Application.DataContext;
 using ServiceRequestManager.Application.Model;
 using System;
 using System.Collections.Generic;
@@ -17,12 +18,12 @@ namespace ServiceRequestManager.Application.Repositories
         }
         public List<ServiceRequest> GetAll()
         {
-            return  _context.ServiceRequest.ToList();
+            return _context.ServiceRequest.ToList();
         }
 
         public async Task<ServiceRequest> GetOneById(Guid id)
         {
-            throw new NotImplementedException();
+            return await _context.ServiceRequest.FirstOrDefaultAsync(x => x.Id == id);
         }
     }
 }
