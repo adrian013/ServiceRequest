@@ -13,5 +13,6 @@ namespace ServiceRequestManager.Application.Services
         Task<ServiceRequestDTO> GetOneById(Guid id);
         Task<Guid> Create(ServiceRequestPostDTO serviceRequest);
         Task Update(ServiceRequestPostDTO serviceRequest, Guid id);
+        Task Delete(Guid id);
     }
 }

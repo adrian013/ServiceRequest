@@ -101,5 +101,26 @@ namespace ServiceRequestManager.Api.Controllers
 
             return Ok();
         }
+
+        /// <summary>
+        /// update service request based on id
+        /// </summary>
+        /// <returns>Status code</returns>
+        [HttpDelete("{id}")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Guid>> Delete(Guid id)
+        {
+            try
+            {
+                await _serviceRequestService.Delete(id);
+            }
+            catch (NotFoundExeption)
+            {
+                return NotFound();
+            }
+
+            return Created("", id);
+        }
     }
 }

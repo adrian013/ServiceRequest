@@ -13,5 +13,6 @@ namespace ServiceRequestManager.Application.Repositories
         List<ServiceRequest> GetAll();
         Task<Guid> Create(ServiceRequest serviceRequest);
         Task Update(ServiceRequest serviceRequest);
+        Task Delete(Guid id);
     }
 }

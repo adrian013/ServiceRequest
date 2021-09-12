@@ -52,5 +52,17 @@ namespace ServiceRequestManager.Application.Repositories
 
             await _context.SaveChangesAsync();
         }
+
+        public async Task Delete(Guid id)
+        {
+            var serviceRequestToDelete = await _context.ServiceRequest.FirstOrDefaultAsync(x => x.Id == id);
+
+            if (serviceRequestToDelete == null)
+                throw new NotFoundExeption();
+
+            _context.ServiceRequest.Remove(serviceRequestToDelete);
+
+            await _context.SaveChangesAsync();
+        }
     }
 }

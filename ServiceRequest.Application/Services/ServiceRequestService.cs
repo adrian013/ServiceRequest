@@ -52,5 +52,10 @@ namespace ServiceRequestManager.Application.Services
 
             await _serviceRequestRepository.Update(serviceRequestModel);
         }
+
+        public async Task Delete(Guid id)
+        {
+            await _serviceRequestRepository.Delete(id);
+        }
     }
 }
