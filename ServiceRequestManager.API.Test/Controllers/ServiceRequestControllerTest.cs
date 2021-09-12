@@ -10,6 +10,7 @@ using ServiceRequestManager.Application.DTO;
 using ServiceRequestManager.Api.Controllers;
 using System.Text.Json;
 using Microsoft.AspNetCore.Mvc;
+using ServiceRequestManager.Application.Exceptions;
 
 namespace ServiceRequestManager.API.Test.Controllers
 {
@@ -110,6 +111,119 @@ namespace ServiceRequestManager.API.Test.Controllers
             var result = await controller.GetById(Guid.NewGuid());
 
             Assert.IsType<NotFoundResult>(result.Result);
+        }
+        #endregion
+
+        #region Post
+        [Fact]
+        public async Task Post_Returns_201_If_ServiceRequests_Creates_Ok()
+        {
+            _serviceRequestServiceMock.Setup(m => m.Create(It.IsAny<ServiceRequestPostDTO>())).Returns(Task.FromResult(Guid.NewGuid()));
+
+            var controller = new ServiceRequestController(_serviceRequestServiceMock.Object);
+            var body = new ServiceRequestPostDTO()
+            {
+                BuildingCode = "Fake Code",
+                CurrentStatus = "Created",
+                Description = "Fake Description"
+            };
+
+            var result = await controller.Post(body);
+
+            Assert.IsType<CreatedResult>(result);
+        }
+
+        [Fact]
+        public async Task Post_Returns_400_If_Bad_Body()
+        {
+            var controller = new ServiceRequestController(_serviceRequestServiceMock.Object);
+            var body = new ServiceRequestPostDTO()
+            {
+                BuildingCode = "Fake Code",
+                CurrentStatus = "WrongStatus",
+                Description = "Fake Description"
+            };
+
+            var result = await controller.Post(body);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+        #endregion
+
+        #region Put
+        [Fact]
+        public async Task Put_Returns_201_If_ServiceRequests_Updates_Ok()
+        {
+            _serviceRequestServiceMock.Setup(m => m.Create(It.IsAny<ServiceRequestPostDTO>())).Returns(Task.FromResult(Guid.NewGuid()));
+
+            var controller = new ServiceRequestController(_serviceRequestServiceMock.Object);
+            var body = new ServiceRequestPostDTO()
+            {
+                BuildingCode = "Fake Code",
+                CurrentStatus = "Created",
+                Description = "Fake Description"
+            };
+
+            var result = await controller.Put(Guid.NewGuid(), body);
+
+            Assert.IsType<OkResult>(result);
+        }
+
+        [Fact]
+        public async Task Put_Returns_400_If_Bad_Body()
+        {
+            var controller = new ServiceRequestController(_serviceRequestServiceMock.Object);
+            var body = new ServiceRequestPostDTO()
+            {
+                BuildingCode = "Fake Code",
+                CurrentStatus = "WrongStatus",
+                Description = "Fake Description"
+            };
+
+            var result = await controller.Put(Guid.NewGuid(), body);
+
+            Assert.IsType<BadRequestObjectResult>(result);
+        }
+        [Fact]
+        public async Task Put_Returns_404_If_ServiceRequest_Does_Not_Exists()
+        {
+            _serviceRequestServiceMock.Setup(m => m.Update(It.IsAny<ServiceRequestPostDTO>(), It.IsAny<Guid>())).Throws(new NotFoundExeption());
+            var controller = new ServiceRequestController(_serviceRequestServiceMock.Object);
+            var body = new ServiceRequestPostDTO()
+            {
+                BuildingCode = "Fake Code",
+                CurrentStatus = "Created",
+                Description = "Fake Description"
+            };
+
+            var result = await controller.Put(Guid.NewGuid(), body);
+
+            Assert.IsType<NotFoundResult>(result);
+        }
+        #endregion
+
+        #region GetById
+        [Fact]
+        public async Task Delete_Returns_201_If_ServiceRequest_Is_Deleted()
+        {
+            _serviceRequestServiceMock.Setup(m => m.Delete(It.IsAny<Guid>())).Returns(Task.FromResult(true));
+
+            var controller = new ServiceRequestController(_serviceRequestServiceMock.Object);
+
+            var result = await controller.Delete(new Guid("727b376b-79ae-498e-9cff-a9f51b848ea4"));
+            Assert.IsType<CreatedResult>(result);
+        }
+
+        [Fact]
+        public async Task Delete_Returns_404_If_ServiceRequests_Is_Not_Found()
+        {
+            _serviceRequestServiceMock.Setup(m => m.Delete(It.IsAny<Guid>())).Throws(new NotFoundExeption());
+
+            var controller = new ServiceRequestController(_serviceRequestServiceMock.Object);
+
+            var result = await controller.Delete(new Guid("727b376b-79ae-498e-9cff-a9f51b848ea4"));
+            
+            Assert.IsType<NotFoundResult>(result);
         }
         #endregion
     }

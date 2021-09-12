@@ -67,7 +67,7 @@ namespace ServiceRequestManager.Api.Controllers
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<Guid>> Post([FromBody] ServiceRequestPostDTO body)
+        public async Task<IActionResult> Post([FromBody] ServiceRequestPostDTO body)
         {
             if (!Enum.IsDefined(typeof(Enums.CurrentStatus), body.CurrentStatus))
                 return BadRequest("Invalid Status");
@@ -85,7 +85,7 @@ namespace ServiceRequestManager.Api.Controllers
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Guid>> Put([FromRoute] Guid id, [FromBody] ServiceRequestPostDTO body)
+        public async Task<IActionResult> Put([FromRoute] Guid id, [FromBody] ServiceRequestPostDTO body)
         {
             if (!Enum.IsDefined(typeof(Enums.CurrentStatus), body.CurrentStatus))
                 return BadRequest("Invalid Status");
@@ -109,7 +109,7 @@ namespace ServiceRequestManager.Api.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<ActionResult<Guid>> Delete(Guid id)
+        public async Task<IActionResult> Delete(Guid id)
         {
             try
             {
