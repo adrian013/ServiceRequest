@@ -42,5 +42,15 @@ namespace ServiceRequestManager.Application.Services
 
             return await _serviceRequestRepository.Create(serviceRequestModel);
         }
+
+        public async Task Update(ServiceRequestPostDTO serviceRequest, Guid id)
+        {
+            var serviceRequestModel = _mapper.Map<Model.ServiceRequest>(serviceRequest);
+            serviceRequestModel.Id = id;
+            serviceRequestModel.LastModifiedDate = DateTime.Now;
+            serviceRequestModel.LastModifiedBy = USER_NAME;
+
+            await _serviceRequestRepository.Update(serviceRequestModel);
+        }
     }
 }

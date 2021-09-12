@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using ServiceRequestManager.Application.DataContext;
+using ServiceRequestManager.Application.Exceptions;
 using ServiceRequestManager.Application.Model;
 using System;
 using System.Collections.Generic;
@@ -34,6 +35,22 @@ namespace ServiceRequestManager.Application.Repositories
             await _context.SaveChangesAsync();
 
             return serviceRequest.Id;
+        }
+
+        public async Task Update(ServiceRequest serviceRequest)
+        {
+            var serviceRequestToUpdate = await _context.ServiceRequest.FirstOrDefaultAsync(x => x.Id == serviceRequest.Id);
+
+            if (serviceRequestToUpdate == null)
+                throw new NotFoundExeption();
+
+            serviceRequestToUpdate.BuildingCode = serviceRequest.BuildingCode;
+            serviceRequestToUpdate.CurrentStatus = serviceRequest.CurrentStatus;
+            serviceRequestToUpdate.Description = serviceRequest.Description;
+            serviceRequestToUpdate.LastModifiedBy = serviceRequest.LastModifiedBy;
+            serviceRequestToUpdate.LastModifiedDate = serviceRequest.LastModifiedDate;
+
+            await _context.SaveChangesAsync();
         }
     }
 }

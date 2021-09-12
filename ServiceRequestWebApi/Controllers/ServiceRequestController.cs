@@ -7,6 +7,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using ServiceRequestManager.Application.Exceptions;
 
 namespace ServiceRequestManager.Api.Controllers
 {
@@ -66,7 +67,7 @@ namespace ServiceRequestManager.Api.Controllers
         [HttpPost("")]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<ActionResult<ServiceRequestDTO>> Post([FromBody] ServiceRequestPostDTO body)
+        public async Task<ActionResult<Guid>> Post([FromBody] ServiceRequestPostDTO body)
         {
             if (!Enum.IsDefined(typeof(Enums.CurrentStatus), body.CurrentStatus))
                 return BadRequest("Invalid Status");
@@ -74,6 +75,31 @@ namespace ServiceRequestManager.Api.Controllers
             var id = await _serviceRequestService.Create(body);
 
             return Created($"api/serviceRequest/{id}", id);
+        }
+
+        /// <summary>
+        /// update service request based on id
+        /// </summary>
+        /// <returns>Status code</returns>
+        [HttpPut("{id}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        public async Task<ActionResult<Guid>> Put([FromRoute] Guid id, [FromBody] ServiceRequestPostDTO body)
+        {
+            if (!Enum.IsDefined(typeof(Enums.CurrentStatus), body.CurrentStatus))
+                return BadRequest("Invalid Status");
+
+            try
+            {
+                await _serviceRequestService.Update(body, id);
+            }
+            catch (NotFoundExeption)
+            {
+                return NotFound();
+            }
+
+            return Ok();
         }
     }
 }

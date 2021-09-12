@@ -12,5 +12,6 @@ namespace ServiceRequestManager.Application.Repositories
         Task<ServiceRequest> GetOneById(Guid id);
         List<ServiceRequest> GetAll();
         Task<Guid> Create(ServiceRequest serviceRequest);
+        Task Update(ServiceRequest serviceRequest);
     }
 }
