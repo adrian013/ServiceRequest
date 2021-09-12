@@ -7,6 +7,10 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceRequestManager.API",
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ServiceRequestManager.Application", "ServiceRequest.Application\ServiceRequestManager.Application.csproj", "{C4AE4758-2988-422E-9088-F79D416F09D8}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRequestManager.API.Test", "ServiceRequestManager.API.Test\ServiceRequestManager.API.Test.csproj", "{0E2219C1-0264-4B9D-A593-389F8FC698D4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ServiceRequestManager.Application.Test", "ServiceRequestManager.Application.Test\ServiceRequestManager.Application.Test.csproj", "{086F132C-FAB2-45C8-A769-40B2D5961A31}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -21,6 +25,14 @@ Global
 		{C4AE4758-2988-422E-9088-F79D416F09D8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C4AE4758-2988-422E-9088-F79D416F09D8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C4AE4758-2988-422E-9088-F79D416F09D8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0E2219C1-0264-4B9D-A593-389F8FC698D4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0E2219C1-0264-4B9D-A593-389F8FC698D4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0E2219C1-0264-4B9D-A593-389F8FC698D4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0E2219C1-0264-4B9D-A593-389F8FC698D4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{086F132C-FAB2-45C8-A769-40B2D5961A31}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{086F132C-FAB2-45C8-A769-40B2D5961A31}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{086F132C-FAB2-45C8-A769-40B2D5961A31}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{086F132C-FAB2-45C8-A769-40B2D5961A31}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

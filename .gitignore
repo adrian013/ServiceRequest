@@ -8,3 +8,7 @@
 /ServiceRequest.Repository/obj
 /ServiceRequestWebApi/bin/Debug/net5.0
 /ServiceRequestWebApi/obj
+/ServiceRequestManager.API.Test/bin/Debug/net5.0
+/ServiceRequestManager.API.Test/obj
+/ServiceRequestManager.Application.Test/bin/Debug/net5.0
+/ServiceRequestManager.Application.Test/obj
