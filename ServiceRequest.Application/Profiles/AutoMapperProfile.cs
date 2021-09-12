@@ -14,6 +14,7 @@ namespace ServiceRequestManager.Application.Profiles
         public AutoMapperProfile()
         {
             CreateMap<ServiceRequest, ServiceRequestDTO>();
+            CreateMap<ServiceRequestPostDTO, ServiceRequest>();
         }
     }
 }

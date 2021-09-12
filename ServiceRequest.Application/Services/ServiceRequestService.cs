@@ -11,6 +11,7 @@ namespace ServiceRequestManager.Application.Services
 {
     public class ServiceRequestService : IServiceRequestService
     {
+        private const string USER_NAME = "FakeUserName"; //TODO: pending to define authentication
         private readonly IServiceRequestRepository _serviceRequestRepository;
         private readonly IMapper _mapper;
 
@@ -19,7 +20,7 @@ namespace ServiceRequestManager.Application.Services
             _serviceRequestRepository = serviceRequestRepository;
             _mapper = mapper;
         }
-
+      
         public List<ServiceRequestDTO> GetAll()
         {
             var serviceRequests = _serviceRequestRepository.GetAll();
@@ -32,6 +33,14 @@ namespace ServiceRequestManager.Application.Services
             var serviceRequest = await _serviceRequestRepository.GetOneById(id);
 
             return _mapper.Map<ServiceRequestDTO>(serviceRequest);
+        }
+        public async Task<Guid> Create(ServiceRequestPostDTO serviceRequest)
+        {
+            var serviceRequestModel = _mapper.Map<Model.ServiceRequest>(serviceRequest);
+            serviceRequestModel.CreatedDate = serviceRequestModel.LastModifiedDate = DateTime.Now;
+            serviceRequestModel.CreatedBy = serviceRequestModel.LastModifiedBy = USER_NAME;
+
+            return await _serviceRequestRepository.Create(serviceRequestModel);
         }
     }
 }

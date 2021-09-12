@@ -25,5 +25,15 @@ namespace ServiceRequestManager.Application.Repositories
         {
             return await _context.ServiceRequest.FirstOrDefaultAsync(x => x.Id == id);
         }
+
+        public async Task<Guid> Create(ServiceRequest serviceRequest)
+        {
+            serviceRequest.Id = Guid.NewGuid();
+
+            _context.ServiceRequest.Add(serviceRequest);
+            await _context.SaveChangesAsync();
+
+            return serviceRequest.Id;
+        }
     }
 }

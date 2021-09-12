@@ -58,5 +58,22 @@ namespace ServiceRequestManager.Api.Controllers
 
             return Ok(serviceRequest);
         }
+
+        /// <summary>
+        /// Create new service request.
+        /// </summary>
+        /// <returns>Status code</returns>
+        [HttpPost("")]
+        [ProducesResponseType(StatusCodes.Status201Created)]
+        [ProducesResponseType(StatusCodes.Status400BadRequest)]
+        public async Task<ActionResult<ServiceRequestDTO>> Post([FromBody] ServiceRequestPostDTO body)
+        {
+            if (!Enum.IsDefined(typeof(Enums.CurrentStatus), body.CurrentStatus))
+                return BadRequest("Invalid Status");
+
+            var id = await _serviceRequestService.Create(body);
+
+            return Created($"api/serviceRequest/{id}", id);
+        }
     }
 }
