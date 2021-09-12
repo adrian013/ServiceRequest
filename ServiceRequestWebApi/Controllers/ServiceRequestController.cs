@@ -28,9 +28,9 @@ namespace ServiceRequestManager.Api.Controllers
         [HttpGet("")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
-        public async Task<ActionResult<List<ServiceRequestDTO>>> GetAllServiceRequest()
+        public ActionResult<List<ServiceRequestDTO>> GetAllServiceRequest()
         {
-            var serviceRequests = await _serviceRequestService.GetAll();
+            var serviceRequests =  _serviceRequestService.GetAll();
 
             if (serviceRequests == null)
             {

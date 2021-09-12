@@ -20,11 +20,16 @@ namespace ServiceRequestManager.Application.Services
             _mapper = mapper;
         }
 
-        public async Task<List<ServiceRequestDTO>> GetAll()
+        public List<ServiceRequestDTO> GetAll()
         {
-            var serviceRequests = await _serviceRequestRepository.GetAll();
+            var serviceRequests = _serviceRequestRepository.GetAll();
 
             return _mapper.Map<List<ServiceRequestDTO>>(serviceRequests);
+        }
+
+        public async Task<ServiceRequestDTO> GetOneById()
+        {
+            throw new NotImplementedException();
         }
     }
 }

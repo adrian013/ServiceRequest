@@ -6,11 +6,13 @@ using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
 using Microsoft.OpenApi.Models;
+using ServiceRequestManager.Application.DataContext;
 using ServiceRequestManager.Application.Extensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
 
 namespace ServiceRequestManager.Api
 {
@@ -32,6 +34,8 @@ namespace ServiceRequestManager.Api
 
             services.AddServices();
             services.AddRepositories();
+
+            services.AddDbContext<ServiceRequestDBContext>(options => options.UseInMemoryDatabase(databaseName: "BoardGames"));
 
             services.AddSwaggerGen(c =>
             {

@@ -9,6 +9,7 @@ namespace ServiceRequestManager.Application.Repositories
 {
     public interface IServiceRequestRepository
     {
-        Task<ServiceRequest> GetAll();
+        Task<ServiceRequest> GetOneById(Guid id);
+        List<ServiceRequest> GetAll();
     }
 }

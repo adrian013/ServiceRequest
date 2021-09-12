@@ -9,6 +9,7 @@ namespace ServiceRequestManager.Application.Services
 {
     public interface IServiceRequestService
     {
-        Task<List<ServiceRequestDTO>> GetAll();
+        List<ServiceRequestDTO> GetAll();
+        Task<ServiceRequestDTO> GetOneById();
     }
 }
