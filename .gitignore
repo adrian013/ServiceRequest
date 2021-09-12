@@ -3,3 +3,8 @@
 ################################################################################
 
 /.vs/ServiceRequestWebApi
+/ServiceRequest.Application/bin/Debug/net5.0
+/ServiceRequest.Application/obj
+/ServiceRequest.Repository/obj
+/ServiceRequestWebApi/bin/Debug/net5.0
+/ServiceRequestWebApi/obj
